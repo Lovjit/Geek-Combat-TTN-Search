@@ -29,7 +29,7 @@ public class UploadObjectMultipartUploadUsingHighLevelAPI {
     // https://s3-us-west-2.amazonaws.com/untameable-root-folder/Sample-Xls
     @SuppressWarnings("deprecation")
 	public static int uploadFileStream(InputStream stream, String bucketName, String keyName, String fileName,String region) throws IOException {
-    	BasicAWSCredentials creds=new BasicAWSCredentials("AKIAI3X364N6ZZ5YXZNQ", "DfY9fu1bWys3r30wXR63RQsAXIRENz7LLrLYqQjZ");
+    	BasicAWSCredentials creds=new BasicAWSCredentials("", "");
     	AmazonS3Client s3client = new AmazonS3Client(creds);
     	s3client.setRegion(Region.getRegion(Regions.US_WEST_2));
     	bucketName = "untameable-root-folder";
