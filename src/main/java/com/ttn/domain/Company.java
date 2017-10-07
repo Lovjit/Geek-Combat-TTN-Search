@@ -1,67 +1,44 @@
 package com.ttn.domain;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "company")
-public class Company {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
-    private Long id;
-	
-	@Column(name="name")
+public class Company extends AbstractDomain {
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="company_description")
+
+	@Column(name = "location")
+	private String location;
+
+	@Column(name = "company_description")
 	private String companyDescription;
-	
-	@OneToMany(mappedBy="company")
+
+	@OneToMany(mappedBy = "company")
 	private List<Project> projects;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private CompanyType companyType;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private IndustryType industryType;
-	
-	@Column(name = "date_created",nullable=false)
-    private Calendar dateCreated;
-	
-	@Column(name = "last_updated",nullable=false)
-    private Calendar lastUpdated;
-	
-	@PrePersist
-	protected void onCreate() {
-		dateCreated = Calendar.getInstance();
-	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		lastUpdated = Calendar.getInstance();
-	}
+	@Column(name = "testimonial")
+	private String testimonial;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name = "public_reference")
+	private Boolean referenceInPublicDomain;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name = "highlight_link")
+	private String highlightsLink;
 
 	public String getName() {
 		return name;
@@ -95,24 +72,44 @@ public class Company {
 		this.industryType = industryType;
 	}
 
-	public Calendar getDateCreated() {
-		return dateCreated;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setDateCreated(Calendar dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
-	public Calendar getLastUpdated() {
-		return lastUpdated;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setLastUpdated(Calendar lastUpdated) {
-		this.lastUpdated = lastUpdated;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
-	
-	
-	
-	
+
+	public String getTestimonial() {
+		return testimonial;
+	}
+
+	public void setTestimonial(String testimonial) {
+		this.testimonial = testimonial;
+	}
+
+	public Boolean getReferenceInPublicDomain() {
+		return referenceInPublicDomain;
+	}
+
+	public void setReferenceInPublicDomain(Boolean referenceInPublicDomain) {
+		this.referenceInPublicDomain = referenceInPublicDomain;
+	}
+
+	public String getHighlightsLink() {
+		return highlightsLink;
+	}
+
+	public void setHighlightsLink(String highlightsLink) {
+		this.highlightsLink = highlightsLink;
+	}
 
 }

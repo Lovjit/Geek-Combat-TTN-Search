@@ -1,33 +1,24 @@
 package com.ttn.dto;
 
+import com.ttn.domain.AbstractDomain;
+
 /**
  * @param <T>
  *            the type parameter
  */
 public class SearchPropertiesDTO<T> {
 
-	private GenericCO<T> object;
+	private AbstractDomain object;
 
 	private String index;
 
 	private T id;
 
-	/**
-	 * Gets object.
-	 *
-	 * @return the object
-	 */
-	public GenericCO<T> getObject() {
+	public AbstractDomain getObject() {
 		return object;
 	}
 
-	/**
-	 * Sets object.
-	 *
-	 * @param object
-	 *            the object
-	 */
-	public void setObject(GenericCO<T> object) {
+	public void setObject(AbstractDomain object) {
 		this.object = object;
 	}
 

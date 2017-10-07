@@ -6,15 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,12 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "project")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Project {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
-    private Long id;
+public class Project extends AbstractDomain{
 	
 	@Column(name="name",nullable=false)
 	private String name;
@@ -37,17 +27,17 @@ public class Project {
 	
 	@Column(name="city",nullable=true)
 	private String city;
-	
+
 	@ManyToOne
 	@JoinColumn
 	private Company company;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private ApplicationType applicationType;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private EngagementType engagementType;
-	
+
 	@OneToMany
 	private List<Technology> technologies;
 	
@@ -80,53 +70,13 @@ public class Project {
 	
 	@Column(name = "case_study_doc_url",nullable=true)
     private String caseStudyDocUrl;
-	
-	@Column(name = "date_created",nullable=true)
-    private Calendar dateCreated = Calendar.getInstance();
-	
-	@Column(name = "last_updated",nullable=true)
-    private Calendar lastUpdated = Calendar.getInstance();
-	
-	@PrePersist
-	protected void onCreate() {
-		dateCreated = Calendar.getInstance();
-	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		lastUpdated = Calendar.getInstance();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Calendar getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Calendar dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Calendar getLastUpdated() {
-		return lastUpdated;
-	}
-
-	public void setLastUpdated(Calendar lastUpdated) {
-		this.lastUpdated = lastUpdated;
 	}
 
 	public String getCountryName() {
@@ -151,6 +101,30 @@ public class Project {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public ApplicationType getApplicationType() {
+		return applicationType;
+	}
+
+	public void setApplicationType(ApplicationType applicationType) {
+		this.applicationType = applicationType;
+	}
+
+	public EngagementType getEngagementType() {
+		return engagementType;
+	}
+
+	public void setEngagementType(EngagementType engagementType) {
+		this.engagementType = engagementType;
+	}
+
+	public List<Technology> getTechnologies() {
+		return technologies;
+	}
+
+	public void setTechnologies(List<Technology> technologies) {
+		this.technologies = technologies;
 	}
 
 	public String getProjectDescription() {
@@ -232,29 +206,8 @@ public class Project {
 	public void setCaseStudyDocUrl(String caseStudyDocUrl) {
 		this.caseStudyDocUrl = caseStudyDocUrl;
 	}
-
-	public ApplicationType getApplicationType() {
-		return applicationType;
-	}
-
-	public void setApplicationType(ApplicationType applicationType) {
-		this.applicationType = applicationType;
-	}
-
-	public EngagementType getEngagementType() {
-		return engagementType;
-	}
-
-	public void setEngagementType(EngagementType engagementType) {
-		this.engagementType = engagementType;
-	}
-
-	public List<Technology> getTechnologies() {
-		return technologies;
-	}
-
-	public void setTechnologies(List<Technology> technologies) {
-		this.technologies = technologies;
-	}
 	
+	
+	
+
 }

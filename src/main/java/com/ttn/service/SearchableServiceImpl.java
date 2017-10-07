@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ttn.config.SearchRabbitConfiguration;
 import com.ttn.contants.SearchConstants;
+import com.ttn.domain.AbstractDomain;
 import com.ttn.dto.GenericCO;
 import com.ttn.dto.SearchPropertiesDTO;
 import com.ttn.enums.DomainNameEnum;
@@ -70,7 +71,6 @@ public class SearchableServiceImpl implements SearchableService {
 		switch (domainName) {
 		case PROJECT:
 			SearchPropertiesDTO<Long> searchPropertiesDTO = new SearchPropertiesDTO<>();
-			// RRChannelCO rrChannelCO = new RRChannelCO();
 			// RRLiveChannel rrLiveChannel = extractDataFromObject(domainName,
 			// object, rrChannelCO, searchPropertiesDTO);
 			// rrChannelCO.setLogoURL(rrLiveChannel.getImageUrl());
@@ -93,14 +93,12 @@ public class SearchableServiceImpl implements SearchableService {
 		return searchProperties;
 	}
 
-	private <T, U> T extractDataFromObject(DomainNameEnum domainName, Object object, GenericCO<U> objectCO,
-			SearchPropertiesDTO<U> searchPropertiesDTO) {
-		T obj = (T) object;
-		BeanUtils.copyProperties(obj, objectCO);
-		searchPropertiesDTO.setObject(objectCO);
+	private SearchPropertiesDTO extractDataFromObject(DomainNameEnum domainName, AbstractDomain object) {
+		SearchPropertiesDTO<Long> searchPropertiesDTO = new SearchPropertiesDTO<>();
+		searchPropertiesDTO.setObject(object);
 		searchPropertiesDTO.setIndex(domainName.getIndexName());
-		searchPropertiesDTO.setId(objectCO.getId());
-		return obj;
+		searchPropertiesDTO.setId(object.getId());
+		return searchPropertiesDTO;
 	}
 
 }
