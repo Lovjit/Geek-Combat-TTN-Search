@@ -18,11 +18,11 @@ public class AbstractDomain {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "date_created", nullable = false)
-	protected Calendar dateCreated;
-
-	@Column(name = "last_updated")
-	protected Calendar lastUpdated;
+	@Column(name = "date_created",nullable=true)
+    private Calendar dateCreated = Calendar.getInstance();
+	
+	@Column(name = "last_updated",nullable=true)
+    private Calendar lastUpdated = Calendar.getInstance();
 
 	public Long getId() {
 		return id;

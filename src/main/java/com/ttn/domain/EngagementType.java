@@ -8,8 +8,8 @@ import javax.persistence.Table;
 import com.ttn.jdbcCallbacks.Searchable;
 
 @Entity
-@Table(name = "application_type")
 @EntityListeners({Searchable.class})
+@Table(name = "engagement_type")
 public class EngagementType extends AbstractDomain {
 
 	@Column(name = "name")

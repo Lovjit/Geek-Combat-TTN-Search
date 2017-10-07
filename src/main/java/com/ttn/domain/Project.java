@@ -13,15 +13,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ttn.jdbcCallbacks.Searchable;
 
 @Entity
 @Table(name = "project")
 @EntityListeners({Searchable.class})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends AbstractDomain {
 
-	@Column(name = "name")
+	
+	@Column(name="name",nullable=false)
 	private String name;
+	
+	@Column(name="country_name",nullable=true)
+	private String countryName;
+	
+	@Column(name="city",nullable=true)
+	private String city;
 
 	@ManyToOne
 	@JoinColumn
@@ -35,27 +44,35 @@ public class Project extends AbstractDomain {
 
 	@OneToMany
 	private List<Technology> technologies;
-
-	@Column(name = "project_description")
+	
+	@Column(name="project_description",nullable=true)
 	private String projectDescription;
-
-	@Column(name = "start_time")
-	private Calendar startTime;
-
-	@Column(name = "estimated_end_date")
-	private Calendar estimatedEndDate;
-
-	@Column(name = "web_app_link")
-	private String webAppLink;
-
-	@Column(name = "android_app_link")
-	private String androidAppLink;
-
-	@Column(name = "apple_app_link")
-	private String appleAppLink;
-
-	@Column(name = "case_study_doc_url")
-	private String caseStudyDocUrl;
+	@Column(name = "start_time",nullable=true)
+    private Calendar startTime;
+	
+	@Column(name = "estimated_end_date",nullable=true)
+    private Calendar estimatedEndDate;
+	
+	@Column(name = "web_app_link",nullable=true)
+    private String webAppLink;
+	
+	@Column(name = "android_app_link",nullable=true)
+    private String androidAppLink;
+	
+	@Column(name = "apple_app_link",nullable=true)
+    private String appleAppLink;
+	
+	@Column(name = "is_testimonial_present",nullable=true)
+    private boolean isTestimonialPresent;
+	
+	@Column(name = "is_referenceable_in_public_domain",nullable=true)
+    private boolean isReferenceableInPublicDomain;
+	
+	@Column(name = "business_highlighted_doc_url",nullable=true)
+    private String businessHighlightDocUrl;
+	
+	@Column(name = "case_study_doc_url",nullable=true)
+    private String caseStudyDocUrl;
 
 	public String getName() {
 		return name;
@@ -152,5 +169,8 @@ public class Project extends AbstractDomain {
 	public void setCaseStudyDocUrl(String caseStudyDocUrl) {
 		this.caseStudyDocUrl = caseStudyDocUrl;
 	}
+	
+	
+	
 
 }
