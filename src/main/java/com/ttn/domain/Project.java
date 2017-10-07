@@ -6,124 +6,74 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "project")
-public class Project {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
-    private Long id;
-	
-	@Column(name="name")
+public class Project extends AbstractDomain {
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="country_name")
+
+	@Column(name = "country_name")
 	private String countryName;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	private String city;
-	
+
 	@ManyToOne
 	@JoinColumn
 	private Company company;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private ApplicationType applicationType;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private EngagementType engagementType;
-	
+
 	@OneToMany
 	private List<Technology> technologies;
-	
-	@Column(name="project_description")
+
+	@Column(name = "project_description")
 	private String projectDescription;
-	
-	@Column(name = "start_time",nullable=false)
-    private Calendar startTime;
-	
-	@Column(name = "estimated_end_date",nullable=false)
-    private Calendar estimatedEndDate;
-	
-	@Column(name = "web_app_link",nullable=false)
-    private String webAppLink;
-	
-	@Column(name = "android_app_link",nullable=false)
-    private String androidAppLink;
-	
-	@Column(name = "apple_app_link",nullable=false)
-    private String appleAppLink;
-	
-	@Column(name = "is_testimonial_present",nullable=false)
-    private boolean isTestimonialPresent;
-	
-	@Column(name = "is_referenceable_in_public_domain",nullable=false)
-    private boolean isReferenceableInPublicDomain;
-	
-	@Column(name = "business_highlighted_doc_url",nullable=false)
-    private String businessHighlightDocUrl;
-	
-	@Column(name = "case_study_doc_url",nullable=false)
-    private String caseStudyDocUrl;
-	
-	@Column(name = "date_created",nullable=false)
-    private Calendar dateCreated;
-	
-	@Column(name = "last_updated",nullable=false)
-    private Calendar lastUpdated;
-	
-	@PrePersist
-	protected void onCreate() {
-		dateCreated = Calendar.getInstance();
-	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		lastUpdated = Calendar.getInstance();
-	}
+	@Column(name = "start_time", nullable = false)
+	private Calendar startTime;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name = "estimated_end_date", nullable = false)
+	private Calendar estimatedEndDate;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
+	@Column(name = "web_app_link", nullable = false)
+	private String webAppLink;
+
+	@Column(name = "android_app_link", nullable = false)
+	private String androidAppLink;
+
+	@Column(name = "apple_app_link", nullable = false)
+	private String appleAppLink;
+
+	@Column(name = "is_testimonial_present", nullable = false)
+	private boolean isTestimonialPresent;
+
+	@Column(name = "is_referenceable_in_public_domain", nullable = false)
+	private boolean isReferenceableInPublicDomain;
+
+	@Column(name = "business_highlighted_doc_url", nullable = false)
+	private String businessHighlightDocUrl;
+
+	@Column(name = "case_study_doc_url", nullable = false)
+	private String caseStudyDocUrl;
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Calendar getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Calendar dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Calendar getLastUpdated() {
-		return lastUpdated;
-	}
-
-	public void setLastUpdated(Calendar lastUpdated) {
-		this.lastUpdated = lastUpdated;
 	}
 
 	public String getCountryName() {
@@ -253,5 +203,5 @@ public class Project {
 	public void setCaseStudyDocUrl(String caseStudyDocUrl) {
 		this.caseStudyDocUrl = caseStudyDocUrl;
 	}
-	
+
 }
