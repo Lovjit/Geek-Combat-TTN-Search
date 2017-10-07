@@ -6,24 +6,22 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.ttn.jdbcCallbacks.Searchable;
+
 @Entity
 @Table(name = "project")
+@EntityListeners({Searchable.class})
 public class Project extends AbstractDomain {
 
 	@Column(name = "name")
 	private String name;
-
-	@Column(name = "country_name")
-	private String countryName;
-
-	@Column(name = "city")
-	private String city;
 
 	@ManyToOne
 	@JoinColumn
@@ -41,31 +39,22 @@ public class Project extends AbstractDomain {
 	@Column(name = "project_description")
 	private String projectDescription;
 
-	@Column(name = "start_time", nullable = false)
+	@Column(name = "start_time")
 	private Calendar startTime;
 
-	@Column(name = "estimated_end_date", nullable = false)
+	@Column(name = "estimated_end_date")
 	private Calendar estimatedEndDate;
 
-	@Column(name = "web_app_link", nullable = false)
+	@Column(name = "web_app_link")
 	private String webAppLink;
 
-	@Column(name = "android_app_link", nullable = false)
+	@Column(name = "android_app_link")
 	private String androidAppLink;
 
-	@Column(name = "apple_app_link", nullable = false)
+	@Column(name = "apple_app_link")
 	private String appleAppLink;
 
-	@Column(name = "is_testimonial_present", nullable = false)
-	private boolean isTestimonialPresent;
-
-	@Column(name = "is_referenceable_in_public_domain", nullable = false)
-	private boolean isReferenceableInPublicDomain;
-
-	@Column(name = "business_highlighted_doc_url", nullable = false)
-	private String businessHighlightDocUrl;
-
-	@Column(name = "case_study_doc_url", nullable = false)
+	@Column(name = "case_study_doc_url")
 	private String caseStudyDocUrl;
 
 	public String getName() {
@@ -74,22 +63,6 @@ public class Project extends AbstractDomain {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCountryName() {
-		return countryName;
-	}
-
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public Company getCompany() {
@@ -170,30 +143,6 @@ public class Project extends AbstractDomain {
 
 	public void setAppleAppLink(String appleAppLink) {
 		this.appleAppLink = appleAppLink;
-	}
-
-	public boolean isTestimonialPresent() {
-		return isTestimonialPresent;
-	}
-
-	public void setTestimonialPresent(boolean isTestimonialPresent) {
-		this.isTestimonialPresent = isTestimonialPresent;
-	}
-
-	public boolean isReferenceableInPublicDomain() {
-		return isReferenceableInPublicDomain;
-	}
-
-	public void setReferenceableInPublicDomain(boolean isReferenceableInPublicDomain) {
-		this.isReferenceableInPublicDomain = isReferenceableInPublicDomain;
-	}
-
-	public String getBusinessHighlightDocUrl() {
-		return businessHighlightDocUrl;
-	}
-
-	public void setBusinessHighlightDocUrl(String businessHighlightDocUrl) {
-		this.businessHighlightDocUrl = businessHighlightDocUrl;
 	}
 
 	public String getCaseStudyDocUrl() {

@@ -5,12 +5,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.ttn.jdbcCallbacks.Searchable;
+
 @Entity
 @Table(name = "company")
+@EntityListeners({ Searchable.class })
 public class Company extends AbstractDomain {
 
 	@Column(name = "name")
@@ -110,6 +114,10 @@ public class Company extends AbstractDomain {
 
 	public void setHighlightsLink(String highlightsLink) {
 		this.highlightsLink = highlightsLink;
+	}
+
+	public void update(Company company) {
+
 	}
 
 }

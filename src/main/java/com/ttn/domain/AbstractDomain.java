@@ -21,7 +21,7 @@ public class AbstractDomain {
 	@Column(name = "date_created", nullable = false)
 	protected Calendar dateCreated;
 
-	@Column(name = "last_updated", nullable = false)
+	@Column(name = "last_updated")
 	protected Calendar lastUpdated;
 
 	public Long getId() {

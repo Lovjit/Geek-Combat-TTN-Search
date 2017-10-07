@@ -2,10 +2,14 @@ package com.ttn.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
+
+import com.ttn.jdbcCallbacks.Searchable;
 
 @Entity
 @Table(name = "technology_type")
+@EntityListeners({Searchable.class})
 public class TechnologyType extends AbstractDomain {
 
 	@Column(name = "name")

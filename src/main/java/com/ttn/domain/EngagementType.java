@@ -2,10 +2,14 @@ package com.ttn.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Table;
+
+import com.ttn.jdbcCallbacks.Searchable;
 
 @Entity
 @Table(name = "application_type")
+@EntityListeners({Searchable.class})
 public class EngagementType extends AbstractDomain {
 
 	@Column(name = "name")

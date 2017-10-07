@@ -4,10 +4,22 @@ package com.ttn.enums;
  * The enum Domain name enum.
  */
 public enum DomainNameEnum {
-	/**
-	 * Rrlivechannel domain name enum.
-	 */
-	PROJECT("PROJECT", "project");
+
+	COMPANY("COMPANY", "company"),
+
+	PROJECT("PROJECT", "project"),
+
+	TECHNOLOGY("TECHNOLOGY", "technology"),
+
+	TECHNOLOGY_TYPE("TECHNOLOGYTYPE", ""),
+
+	INDUSTRYTYPE("INDUSTRYTYPE", ""),
+
+	COMPANYTYPE("COMPANYTYPE", ""),
+
+	ENGAGEMENTTYPE("ENGAGEMENTTYPE", ""),
+
+	DOC_CONTENT("DOC_CONTENT", "doc_content");
 
 	private String name;
 

@@ -1,5 +1,8 @@
 package com.ttn.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -7,13 +10,16 @@ import org.springframework.stereotype.Service;
 
 import com.ttn.config.SearchRabbitConfiguration;
 import com.ttn.contants.SearchConstants;
-import com.ttn.domain.AbstractDomain;
+import com.ttn.domain.Company;
+import com.ttn.domain.Project;
+import com.ttn.domain.Technology;
 import com.ttn.dto.GenericCO;
 import com.ttn.dto.SearchPropertiesDTO;
+import com.ttn.dto.search.domains.CompanyDTO;
+import com.ttn.dto.search.domains.ProjectDTO;
+import com.ttn.dto.search.domains.TechnologyDTO;
+import com.ttn.enums.ContentTypeEnum;
 import com.ttn.enums.DomainNameEnum;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  */
@@ -68,16 +74,36 @@ public class SearchableServiceImpl implements SearchableService {
 		String classname = object.getClass().getSimpleName();
 		// log.debug("Dumping search data for " + classname);
 		DomainNameEnum domainName = DomainNameEnum.getDomainName(classname);
+		if (domainName == null) {
+			return null;
+		}
+
 		switch (domainName) {
 		case PROJECT:
-			SearchPropertiesDTO<Long> searchPropertiesDTO = new SearchPropertiesDTO<>();
-			// RRLiveChannel rrLiveChannel = extractDataFromObject(domainName,
-			// object, rrChannelCO, searchPropertiesDTO);
-			// rrChannelCO.setLogoURL(rrLiveChannel.getImageUrl());
-			// rrChannelCO.setTitle_en(rrLiveChannel.getChannelName());
-			// rrChannelCO.setIsHD(rrLiveChannel.isHD());
-			// rrChannelCO.setIsPublished(rrLiveChannel.isPublished());
-			return searchPropertiesDTO;
+			SearchPropertiesDTO<Long> projectSearchProperties = new SearchPropertiesDTO<>();
+			ProjectDTO projectCO = new ProjectDTO();
+			Project project = extractDataFromObject(domainName, object, projectCO, projectSearchProperties);
+			projectCO.update(project);
+			projectCO.setContentType(ContentTypeEnum.PROJECT.getName());
+			return projectSearchProperties;
+
+		case COMPANY:
+			SearchPropertiesDTO<Long> companySearchProperties = new SearchPropertiesDTO<>();
+			CompanyDTO companyCO = new CompanyDTO();
+			Company company = extractDataFromObject(domainName, object, companyCO, companySearchProperties);
+			companyCO.update(company);
+			companyCO.setContentType(ContentTypeEnum.ACCOUNT.getName());
+			return companySearchProperties;
+		case TECHNOLOGY:
+			SearchPropertiesDTO<Long> genreSearchProperties = new SearchPropertiesDTO<>();
+			TechnologyDTO technologyCO = new TechnologyDTO();
+			Technology technology = extractDataFromObject(domainName, object, technologyCO, genreSearchProperties);
+			technologyCO.update(technology);
+			technologyCO.setContentType(ContentTypeEnum.TECHNOLOGY.getName());
+			return genreSearchProperties;
+
+		case DOC_CONTENT:
+			return null;
 
 		default:
 			// log.error("This class: " + classname + " is not mapped in
@@ -93,12 +119,14 @@ public class SearchableServiceImpl implements SearchableService {
 		return searchProperties;
 	}
 
-	private SearchPropertiesDTO extractDataFromObject(DomainNameEnum domainName, AbstractDomain object) {
-		SearchPropertiesDTO<Long> searchPropertiesDTO = new SearchPropertiesDTO<>();
-		searchPropertiesDTO.setObject(object);
+	private <T, U> T extractDataFromObject(DomainNameEnum domainName, Object object, GenericCO<U> objectCO,
+			SearchPropertiesDTO<U> searchPropertiesDTO) {
+		T obj = (T) object;
+		BeanUtils.copyProperties(obj, objectCO);
+		searchPropertiesDTO.setObject(objectCO);
 		searchPropertiesDTO.setIndex(domainName.getIndexName());
-		searchPropertiesDTO.setId(object.getId());
-		return searchPropertiesDTO;
+		searchPropertiesDTO.setId(objectCO.getId());
+		return obj;
 	}
 
 }
