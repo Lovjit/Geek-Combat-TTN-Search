@@ -1,29 +1,24 @@
-package com.ttn.entity;
+package com.ttn.domain;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "technology")
-public class Technology {
+@Table(name = "application_type")
+public class ApplicationType {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
     private Long id;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	private TechnologyType technologyType;
 	
 	@Column(name="name")
 	private String name;
@@ -50,14 +45,6 @@ public class Technology {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public TechnologyType getTechnologyType() {
-		return technologyType;
-	}
-
-	public void setTechnologyType(TechnologyType technologyType) {
-		this.technologyType = technologyType;
 	}
 
 	public String getName() {

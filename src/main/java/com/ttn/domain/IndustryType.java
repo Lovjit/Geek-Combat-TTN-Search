@@ -1,4 +1,4 @@
-package com.ttn.entity;
+package com.ttn.domain;
 
 import java.util.Calendar;
 
@@ -12,8 +12,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "application_type")
-public class ApplicationType {
+@Table(name = "industry_type")
+public class IndustryType {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

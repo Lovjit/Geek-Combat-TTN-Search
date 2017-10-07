@@ -1,4 +1,4 @@
-package com.ttn.entity;
+package com.ttn.domain;
 
 import java.util.Calendar;
 
@@ -12,8 +12,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "company_type")
-public class CompanyType {
+@Table(name = "technology_type")
+public class TechnologyType {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -70,8 +70,6 @@ public class CompanyType {
 	public void setLastUpdated(Calendar lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
-	
 	
 	
 

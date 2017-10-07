@@ -1,19 +1,23 @@
-package com.ttn.entity;
+package com.ttn.domain;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "technology_type")
-public class TechnologyType {
+@Table(name = "company")
+public class Company {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +26,18 @@ public class TechnologyType {
 	
 	@Column(name="name")
 	private String name;
+	
+	@Column(name="company_description")
+	private String companyDescription;
+	
+	@OneToMany(mappedBy="company")
+	private List<Project> projects;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private CompanyType companyType;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private IndustryType industryType;
 	
 	@Column(name = "date_created",nullable=false)
     private Calendar dateCreated;
@@ -55,6 +71,30 @@ public class TechnologyType {
 		this.name = name;
 	}
 
+	public String getCompanyDescription() {
+		return companyDescription;
+	}
+
+	public void setCompanyDescription(String companyDescription) {
+		this.companyDescription = companyDescription;
+	}
+
+	public CompanyType getCompanyType() {
+		return companyType;
+	}
+
+	public void setCompanyType(CompanyType companyType) {
+		this.companyType = companyType;
+	}
+
+	public IndustryType getIndustryType() {
+		return industryType;
+	}
+
+	public void setIndustryType(IndustryType industryType) {
+		this.industryType = industryType;
+	}
+
 	public Calendar getDateCreated() {
 		return dateCreated;
 	}
@@ -70,6 +110,8 @@ public class TechnologyType {
 	public void setLastUpdated(Calendar lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+	
+	
 	
 	
 

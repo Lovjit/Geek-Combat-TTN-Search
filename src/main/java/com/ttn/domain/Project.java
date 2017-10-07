@@ -1,4 +1,4 @@
-package com.ttn.entity;
+package com.ttn.domain;
 
 import java.util.Calendar;
 import java.util.List;
@@ -17,8 +17,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "project")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
 	
 	@Id
@@ -26,13 +29,13 @@ public class Project {
 	@Column(name="id")
     private Long id;
 	
-	@Column(name="name")
+	@Column(name="name",nullable=false)
 	private String name;
 	
-	@Column(name="country_name")
+	@Column(name="country_name",nullable=true)
 	private String countryName;
 	
-	@Column(name="city")
+	@Column(name="city",nullable=true)
 	private String city;
 	
 	@ManyToOne
@@ -48,41 +51,41 @@ public class Project {
 	@OneToMany
 	private List<Technology> technologies;
 	
-	@Column(name="project_description")
+	@Column(name="project_description",nullable=true)
 	private String projectDescription;
 	
-	@Column(name = "start_time",nullable=false)
+	@Column(name = "start_time",nullable=true)
     private Calendar startTime;
 	
-	@Column(name = "estimated_end_date",nullable=false)
+	@Column(name = "estimated_end_date",nullable=true)
     private Calendar estimatedEndDate;
 	
-	@Column(name = "web_app_link",nullable=false)
+	@Column(name = "web_app_link",nullable=true)
     private String webAppLink;
 	
-	@Column(name = "android_app_link",nullable=false)
+	@Column(name = "android_app_link",nullable=true)
     private String androidAppLink;
 	
-	@Column(name = "apple_app_link",nullable=false)
+	@Column(name = "apple_app_link",nullable=true)
     private String appleAppLink;
 	
-	@Column(name = "is_testimonial_present",nullable=false)
+	@Column(name = "is_testimonial_present",nullable=true)
     private boolean isTestimonialPresent;
 	
-	@Column(name = "is_referenceable_in_public_domain",nullable=false)
+	@Column(name = "is_referenceable_in_public_domain",nullable=true)
     private boolean isReferenceableInPublicDomain;
 	
-	@Column(name = "business_highlighted_doc_url",nullable=false)
+	@Column(name = "business_highlighted_doc_url",nullable=true)
     private String businessHighlightDocUrl;
 	
-	@Column(name = "case_study_doc_url",nullable=false)
+	@Column(name = "case_study_doc_url",nullable=true)
     private String caseStudyDocUrl;
 	
-	@Column(name = "date_created",nullable=false)
-    private Calendar dateCreated;
+	@Column(name = "date_created",nullable=true)
+    private Calendar dateCreated = Calendar.getInstance();
 	
-	@Column(name = "last_updated",nullable=false)
-    private Calendar lastUpdated;
+	@Column(name = "last_updated",nullable=true)
+    private Calendar lastUpdated = Calendar.getInstance();
 	
 	@PrePersist
 	protected void onCreate() {
@@ -148,30 +151,6 @@ public class Project {
 
 	public void setCompany(Company company) {
 		this.company = company;
-	}
-
-	public ApplicationType getApplicationType() {
-		return applicationType;
-	}
-
-	public void setApplicationType(ApplicationType applicationType) {
-		this.applicationType = applicationType;
-	}
-
-	public EngagementType getEngagementType() {
-		return engagementType;
-	}
-
-	public void setEngagementType(EngagementType engagementType) {
-		this.engagementType = engagementType;
-	}
-
-	public List<Technology> getTechnologies() {
-		return technologies;
-	}
-
-	public void setTechnologies(List<Technology> technologies) {
-		this.technologies = technologies;
 	}
 
 	public String getProjectDescription() {
@@ -252,6 +231,30 @@ public class Project {
 
 	public void setCaseStudyDocUrl(String caseStudyDocUrl) {
 		this.caseStudyDocUrl = caseStudyDocUrl;
+	}
+
+	public ApplicationType getApplicationType() {
+		return applicationType;
+	}
+
+	public void setApplicationType(ApplicationType applicationType) {
+		this.applicationType = applicationType;
+	}
+
+	public EngagementType getEngagementType() {
+		return engagementType;
+	}
+
+	public void setEngagementType(EngagementType engagementType) {
+		this.engagementType = engagementType;
+	}
+
+	public List<Technology> getTechnologies() {
+		return technologies;
+	}
+
+	public void setTechnologies(List<Technology> technologies) {
+		this.technologies = technologies;
 	}
 	
 }
