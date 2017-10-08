@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public enum ContentTypeEnum {
 
-	ACCOUNT("Account", "company"),
+	COMPANIES("Companies", "company"),
 
 	PROJECT("Project", "project"),
 
-	CONTENT("Content", "doc_content"),
+	CONTENT("Content", "document"),
 
 	PERSON("Person", "person"),
 
