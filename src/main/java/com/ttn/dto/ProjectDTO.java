@@ -12,9 +12,11 @@ public class ProjectDTO {
 	
 	private String name;
 	
-	private String countryName;
+	private Long countryId;
 	
-	private String city;
+	private Long stateId;
+	
+	private Long cityId;
 	
 	private Long companyId;
 	
@@ -50,22 +52,6 @@ public class ProjectDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCountryName() {
-		return countryName;
-	}
-
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public List<Long> getTechnologiesId() {
@@ -187,5 +173,31 @@ public class ProjectDTO {
 	public void setEngagementTypeId(Long engagementTypeId) {
 		this.engagementTypeId = engagementTypeId;
 	}
+
+	public Long getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Long countryId) {
+		this.countryId = countryId;
+	}
+
+	public Long getStateId() {
+		return stateId;
+	}
+
+	public void setStateId(Long stateId) {
+		this.stateId = stateId;
+	}
+
+	public Long getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Long cityId) {
+		this.cityId = cityId;
+	}
+	
+	
 
 }

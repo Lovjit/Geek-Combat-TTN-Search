@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -19,7 +22,14 @@ import com.amazonaws.services.s3.model.GetBucketLocationRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+@Service
 public class UploadObjectMultipartUploadUsingHighLevelAPI {
+	
+	@Value("key1")
+	String key1;
+	
+	@Value("key2")
+	String key2;
 	
     public static void main(String[] args) throws Exception {
     	uploadFileStream(null, null, null, null, null);

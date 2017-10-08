@@ -26,12 +26,15 @@ public class Project extends AbstractDomain {
 	@Column(name="name",nullable=false)
 	private String name;
 	
-	@Column(name="country_name",nullable=true)
-	private String countryName;
+	@OneToOne
+	private Country country;
 	
-	@Column(name="city",nullable=true)
-	private String city;
-
+	@OneToOne
+	private State state;
+	
+	@OneToOne
+	private City city;
+	
 	@ManyToOne
 	@JoinColumn
 	private Company company;
@@ -80,6 +83,30 @@ public class Project extends AbstractDomain {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	public Company getCompany() {
@@ -162,6 +189,30 @@ public class Project extends AbstractDomain {
 		this.appleAppLink = appleAppLink;
 	}
 
+	public boolean isTestimonialPresent() {
+		return isTestimonialPresent;
+	}
+
+	public void setTestimonialPresent(boolean isTestimonialPresent) {
+		this.isTestimonialPresent = isTestimonialPresent;
+	}
+
+	public boolean isReferenceableInPublicDomain() {
+		return isReferenceableInPublicDomain;
+	}
+
+	public void setReferenceableInPublicDomain(boolean isReferenceableInPublicDomain) {
+		this.isReferenceableInPublicDomain = isReferenceableInPublicDomain;
+	}
+
+	public String getBusinessHighlightDocUrl() {
+		return businessHighlightDocUrl;
+	}
+
+	public void setBusinessHighlightDocUrl(String businessHighlightDocUrl) {
+		this.businessHighlightDocUrl = businessHighlightDocUrl;
+	}
+
 	public String getCaseStudyDocUrl() {
 		return caseStudyDocUrl;
 	}
@@ -169,7 +220,6 @@ public class Project extends AbstractDomain {
 	public void setCaseStudyDocUrl(String caseStudyDocUrl) {
 		this.caseStudyDocUrl = caseStudyDocUrl;
 	}
-	
 	
 	
 
