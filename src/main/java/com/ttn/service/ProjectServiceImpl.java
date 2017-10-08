@@ -104,7 +104,9 @@ public class ProjectServiceImpl {
 		project.setState(state);
 		project.setCity(city);
 		
-		return new ResponseEntity<Project>(projectRepository.save(project),HttpStatus.OK);
+		Project project2 = projectRepository.save(project);
+		
+		return new ResponseEntity<Project>(project2,HttpStatus.OK);
 	}
 	
 	public Project getById(long id){

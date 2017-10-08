@@ -42,9 +42,10 @@ public class ProjectController {
 	@Autowired
 	CityServiceImpl cityServiceImpl;
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<Project> saveProject(@RequestBody Map<String,Object> projectDataMap) {
-		return projectService.save((Map<String,Object>) ( ( (List<Object>) projectDataMap.get("data")).get(0) ) );
+		return projectService.save(projectDataMap);
+		//return projectService.save((Map<String,Object>) ( ( (List<Object>) projectDataMap.get("data")).get(0) ) );
 		//return null;
     }
 	
