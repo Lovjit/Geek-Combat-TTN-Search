@@ -18,7 +18,7 @@ public class CompanyDTO implements GenericCO<Long> {
 
 	private String description;
 
-	private List<CompanyProjectDTO> projects;
+	private List<ProjectDTO> projects;
 
 	private String companyType;
 
@@ -62,14 +62,6 @@ public class CompanyDTO implements GenericCO<Long> {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<CompanyProjectDTO> getProjects() {
-		return projects;
-	}
-
-	public void setProjects(List<CompanyProjectDTO> projects) {
-		this.projects = projects;
 	}
 
 	public String getCompanyType() {
@@ -120,6 +112,14 @@ public class CompanyDTO implements GenericCO<Long> {
 		this.contentType = contentType;
 	}
 
+	public List<ProjectDTO> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<ProjectDTO> projects) {
+		this.projects = projects;
+	}
+
 	public void update(Company company) {
 		this.setId(company.getId());
 		this.setDescription(company.getCompanyDescription());
@@ -135,9 +135,10 @@ public class CompanyDTO implements GenericCO<Long> {
 			this.setProjects(new ArrayList<>());
 
 			for (Project project : company.getProjects()) {
-				CompanyProjectDTO dto = new CompanyProjectDTO();
+				ProjectDTO dto = new ProjectDTO();
 				dto.setId(project.getId());
 				dto.setName(project.getName());
+				dto.update(project);
 				this.getProjects().add(dto);
 				if (project.getTechnologies() != null) {
 					dto.setTechnologies(new ArrayList<>());

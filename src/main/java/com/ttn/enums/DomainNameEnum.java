@@ -19,7 +19,7 @@ public enum DomainNameEnum {
 
 	ENGAGEMENTTYPE("ENGAGEMENTTYPE", ""),
 
-	DOC_CONTENT("DOC_CONTENT", "doc_content");
+	DOCUMENT("DOCUMENT", "document");
 
 	private String name;
 

@@ -1,8 +1,14 @@
 package com.ttn.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,6 +22,7 @@ import com.ttn.domain.Technology;
 import com.ttn.dto.GenericCO;
 import com.ttn.dto.SearchPropertiesDTO;
 import com.ttn.dto.search.domains.CompanyDTO;
+import com.ttn.dto.search.domains.DocumentDTO;
 import com.ttn.dto.search.domains.ProjectDTO;
 import com.ttn.dto.search.domains.TechnologyDTO;
 import com.ttn.enums.ContentTypeEnum;
@@ -92,7 +99,7 @@ public class SearchableServiceImpl implements SearchableService {
 			CompanyDTO companyCO = new CompanyDTO();
 			Company company = extractDataFromObject(domainName, object, companyCO, companySearchProperties);
 			companyCO.update(company);
-			companyCO.setContentType(ContentTypeEnum.ACCOUNT.getName());
+			companyCO.setContentType(ContentTypeEnum.COMPANIES.getName());
 			return companySearchProperties;
 		case TECHNOLOGY:
 			SearchPropertiesDTO<Long> genreSearchProperties = new SearchPropertiesDTO<>();
@@ -102,8 +109,19 @@ public class SearchableServiceImpl implements SearchableService {
 			technologyCO.setContentType(ContentTypeEnum.TECHNOLOGY.getName());
 			return genreSearchProperties;
 
-		case DOC_CONTENT:
-			return null;
+		case DOCUMENT:
+			SearchPropertiesDTO<String> documentSearchProperties = new SearchPropertiesDTO<>();
+			File file = new File("/home/aniket/geek/Geek-Combat-TTN-Search/src/main/resources/test.pdf");
+			DocumentDTO documentCO = new DocumentDTO();
+			documentCO.setData(this.encodeFile(file));
+			documentCO.setCompany(null);
+			documentCO.setDownloadLink(null);
+			documentCO.setProject(null);
+			documentCO.setContentType(ContentTypeEnum.CONTENT.getName());
+			documentSearchProperties.setIndex(domainName.getIndexName());
+			documentSearchProperties.setId("1");
+			documentSearchProperties.setObject(documentCO);
+			return documentSearchProperties;
 
 		default:
 			// log.error("This class: " + classname + " is not mapped in
@@ -127,6 +145,26 @@ public class SearchableServiceImpl implements SearchableService {
 		searchPropertiesDTO.setIndex(domainName.getIndexName());
 		searchPropertiesDTO.setId(objectCO.getId());
 		return obj;
+	}
+
+	public String encodeFile(File file) {
+		String base64 = null;
+		try (InputStream is = new FileInputStream(file)) {
+			byte bytes[] = null;
+			try {
+				bytes = IOUtils.toByteArray(is);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			base64 = Base64.getEncoder().encodeToString(bytes);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return base64;
+
 	}
 
 }
